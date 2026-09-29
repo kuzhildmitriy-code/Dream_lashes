@@ -645,10 +645,38 @@ section{padding:104px 0;}
 }
 </style>
 
+<style id="hero-mobile-height-25-final">
+@media(max-width:700px){
+  /* Mobile: keep the hero only about 25% longer, with a soft gradient at the bottom. */
+  .hero-photo{
+    padding-bottom:0 !important;
+    background:transparent !important;
+  }
+  .hero-photo::after{
+    background:linear-gradient(to bottom, rgba(42,36,31,0) 48%, rgba(42,36,31,.24) 70%, rgba(42,36,31,.72) 100%) !important;
+  }
+}
+</style>
+
 <style id="mobile-about-spacing-final">
 @media(max-width:800px){
   /* Match About spacing to the other sections */
   #about{padding-top:var(--space-section-mobile) !important;}
+}
+</style>
+
+<style id="contact-heading-visibility-final">
+/* Keep the Visit label and main contact heading visible against the taupe background. */
+#contact .eyebrow,
+#contact h2 {
+  color:var(--charcoal) !important;
+}
+@media(max-width:800px){
+  #contact .eyebrow,
+  #contact h2 {
+    color:var(--charcoal) !important;
+    text-align:center;
+  }
 }
 </style>
 
@@ -737,11 +765,43 @@ footer{padding-top:36px;padding-bottom:36px;}
 #about .about-grid > .reveal{margin-top:0 !important;}
 @media(max-width:800px){
   /* Mobile: lift the entire About content upward by 55% while keeping the lower rhythm intact. */
-  #about{padding-top:31px !important; padding-bottom:var(--space-section-mobile) !important;}
+  #about{padding-top:24px !important; padding-bottom:var(--space-section-mobile) !important;}
+}
+<style id="hero-photo-25-percent-longer">
+/* Extend the hero photo by about 25% and let the soft bottom gradient continue naturally. */
+.hero-photo{
+  aspect-ratio:1536 / 2720;
+  overflow:hidden;
+}
+.hero-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+}
+.hero-photo::after{
+  background:linear-gradient(to bottom, rgba(42,36,31,0) 48%, rgba(42,36,31,.24) 70%, rgba(42,36,31,.72) 100%) !important;
 }
 </style>
+</style>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMyQTI0MUYiLz48dGV4dCB4PSIzMiIgeT0iNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSIyNSIgZmlsbD0iI0Y4RjVGMCI+Vks8L3RleHQ+PC9zdmc+">
-  </head>
+  
+<style id="services-pricing-mobile-visible">
+@media(max-width:800px){
+  /* Keep the small Services — Pricing label visible above the main Services heading. */
+  #services .head .eyebrow{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    height:auto !important;
+    overflow:visible !important;
+    margin-bottom:16px !important;
+    text-align:center !important;
+    color:var(--charcoal) !important;
+  }
+}
+</style>
+</head>
 <body>
 
 <header id="siteHeader">
@@ -781,7 +841,6 @@ footer{padding-top:36px;padding-bottom:36px;}
   <div class="wrap">
     <div class="about-grid">
       <div class="reveal">
-        <div class="eyebrow">About</div>
         <h2 class="serif" style="font-size:clamp(1.9rem,3.4vw,2.7rem); line-height:1.15;">Beauty tailored<span class="mobile-break"><br></span> to you</h2>
       </div>
       <div class="reveal">
