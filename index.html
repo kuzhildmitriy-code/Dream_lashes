@@ -1234,7 +1234,7 @@ footer{padding-top:36px;padding-bottom:36px;}
 #about .about-video::-webkit-media-controls,
 #about .about-video::-webkit-media-controls-start-playback-button{display:none !important;-webkit-appearance:none;}
 #about .about-video{cursor:default;user-select:none;-webkit-user-select:none;}
-#about .about-video{pointer-events:none;}
+#about .about-video{pointer-events:none;display:block;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;}
 #about .about-copy h2{margin-bottom:26px;}
 #about .stats > div{justify-content:flex-start;}
 #about .stats .stat-num{display:flex;align-items:flex-end;justify-content:center;min-height:4.2rem;line-height:1.1;}
@@ -1361,17 +1361,21 @@ body,#about,#portfolio,#faq,#services{background:var(--ivory);}
         <p>Private studio designed for a comfortable, personalized experience.</p>
       </div>
       <div class="about-media reveal">
-        <iframe
-  class="about-video"
-  src="https://player.cloudinary.com/embed/?cloud_name=dc0inveqq&public_id=IMG_7323_jp0jon&player%5Bautoplay%5D=true&player%5Bautoplay_mode%5D=always&player%5Bloop%5D=true&player%5Bmuted%5D=true&player%5Bcontrols%5D=false"
-  title="Viktoriia Kost working in her private studio"
-  loading="eager"
-  frameborder="0"
-  allow="autoplay"
-  scrolling="no"
-  tabindex="-1"
-  aria-label="Viktoriia Kost working in her private studio"
-></iframe>
+        <video
+            class="about-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            webkit-playsinline
+            preload="auto"
+            disablepictureinpicture
+            disableremoteplayback
+            controlslist="nodownload nofullscreen noremoteplayback"
+            aria-label="Viktoriia Kost working in her private studio"
+          >
+            <source src="IMG_7323.mp4" type="video/mp4">
+          </video>
       </div>
     </div>
     <div class="stats">
@@ -1792,9 +1796,42 @@ statEls.forEach(el=>statIo.observe(el));
 }
 </style>
 <script>
-/* About Cloudinary player: autoplay + loop + muted are configured in the embed URL.
-   Pointer events are disabled above so the embedded player cannot be paused or scrubbed. */
-</script>
+    /* About video: native MP4, muted autoplay, inline playback, continuous loop, no pause controls. */
+    (function(){
+      var v=document.querySelector('#about .about-video');
+      if(!v) return;
+
+      v.autoplay = true;
+      v.muted = true;
+      v.defaultMuted = true;
+      v.loop = true;
+      v.playsInline = true;
+      v.setAttribute('playsinline','');
+      v.setAttribute('webkit-playsinline','');
+      v.controls = false;
+      v.removeAttribute('controls');
+
+      function startVideo(){
+        v.muted = true;
+        var p=v.play();
+        if(p && p.catch) p.catch(function(){});
+      }
+
+      v.addEventListener('loadedmetadata', startVideo);
+      v.addEventListener('canplay', startVideo);
+      v.addEventListener('playing', function(){ v.muted = true; });
+      v.addEventListener('ended', startVideo);
+      v.addEventListener('pause', function(){
+        if(!document.hidden) startVideo();
+      });
+
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', startVideo, {once:true});
+      } else {
+        startVideo();
+      }
+    })();
+  </script>
 </body>
 </html>
 
